@@ -1,0 +1,25 @@
+Java/Spring Boot - Proyecto
+
+App para administrar alumnos y cursos
+
+El sistema debe permitir:
+
+ Cargar cursos desde un formulario.
+ Cargar alumnos desde un formulario, inscribiéndolos en alguno de los cursos
+    previamente creados (puede estar inscrito solo a un curso), cargándose con
+    una imagen de perfil y con el booleano ‘aprobado’ en false.
+ Ver alumnos y cursos cargados desde distintos grupos de tarjetas o tablas.
+ Editar, ver en detalle, eliminar y aprobar (editar ‘aprobado’) alumnos.
+ Buscar alumnos según alguno de sus atributos.
+ Buscar los alumnos inscritos en determinado curso. Debe indicar si está
+aprobado o no.
+
+Debe el proyecto seguir las buenas prácticas vistas en clase (POO, estructura del
+proyecto, manejo de excepciones, MVC, etc.). Se trabajará con una base de datos
+MySQL y el maquetado web para el front puede realizarse a través de plantillas de
+Bootstrap. Puede tener una barra de navegación para organizar las distintas
+funcionalidades de la aplicación.
+Los atributos de la entidad Alumno deben ser, al menos: nombre, apellido, fecha de
+nacimiento, curso, fecha de inscripción y aprobado (booleano).
+Los atributos de la entidad Curso deben ser, al menos: título, muy breve descripción
+y fecha de creación.
