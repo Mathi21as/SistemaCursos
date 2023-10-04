@@ -23,4 +23,10 @@ public class AlumnoService {
         return alumnoRepository.findById(id);
     }
 
+    public void save(Alumno alumno){
+        if (alumnoRepository.findByNombre(alumno.getNombre()).size() == 0){
+            alumnoRepository.save(alumno);
+        }
+    }
+
 }

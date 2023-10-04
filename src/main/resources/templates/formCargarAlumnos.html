@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="/base :: head"></head>
+<body>
+    <nav th:replace="/base :: nav"></nav>
+
+    <form action="/alumno/cargar" method="POST">
+        <input name="nombre" type="text" placeholder="Nombre"/>
+        <input name="apellido" type="text" placeholder="Apellido"/>
+        <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento"/>
+        <input name="curso_id" type="number" placeholder="Id del curso"/>
+        <input name="fecha_inscripcion" type="date" placeholder="Fecha de inscripcion"/>
+        <button type="submit">Cargar</button>
+    </form>
+
+    <footer th:replace="/base :: footer"></footer>
+
+    <script th:replace="/base :: scriptBootstrap"></script>
+</body>
+</html>

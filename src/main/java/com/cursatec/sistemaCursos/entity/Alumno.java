@@ -19,6 +19,19 @@ public class Alumno {
     private Date fecha_inscripcion;
     private Boolean aprobado;
 
+    public Alumno() {
+    }
+
+    public Alumno(String nombre, String apellido, Date fecha_nacimiento, Curso curso, Date fecha_inscripcion) {
+        this.id = null;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.curso = curso;
+        this.fecha_inscripcion = fecha_inscripcion;
+        this.aprobado = false;
+    }
+
     public Long getId() {
         return id;
     }

@@ -18,6 +18,17 @@ public class Curso {
     private String descripcion;
     private Date fecha_creacion;
 
+    public Curso() {
+    }
+
+    public Curso(List<Alumno> alumnos, String titulo, String descripcion, Date fecha_creacion) {
+        this.id = null;
+        this.alumnos = alumnos;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fecha_creacion = fecha_creacion;
+    }
+
     public Long getId() {
         return id;
     }
