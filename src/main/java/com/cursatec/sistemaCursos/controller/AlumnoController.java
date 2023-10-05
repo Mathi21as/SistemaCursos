@@ -29,12 +29,10 @@ public class AlumnoController {
     }
 
     @GetMapping("/todos")
-    public String findAll(ModelMap model){
-        //ModelMap model = new ModelMap();
+    public String findAll(ModelMap modelMap){
         List<Alumno> alumnos = alumnoService.findAll();
-        model.put("alumnos", alumnos);
-        return "base.html";
-        //return alumnoService.findAll();
+        modelMap.addAttribute("alumnos", alumnos);
+        return "mostrarAlumnos.html";
     }
 
     @GetMapping("/cargar")
@@ -44,14 +42,27 @@ public class AlumnoController {
     }
 
     @PostMapping("/cargar")
-    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento, Long curso_id, String fecha_inscripcion, ModelMap modelmap) throws ParseException {
+    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento, Long curso_id, String fecha_inscripcion, ModelMap modelmap) {
         Curso curso = cursoService.findById(curso_id).get();
         Date fechaNacimiento = new Date(fecha_nacimiento.replace("-", "/"));
         Date fechaInscripcion = new Date(fecha_inscripcion.replace("-", "/"));
         Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, curso, fechaInscripcion);
-        alumnoService.save(alumno);
-        modelmap.addAttribute("alumno", alumno);
-        return "registroAlumnoExitoso.html";
+        String mensajeRegistro;
+        Boolean estado;
+        if (alumnoService.save(alumno)){
+            mensajeRegistro = "Se completo el registro exitosamente.";
+            estado = true;
+            modelmap.addAttribute("estado", estado);
+            modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
+        }else{
+            mensajeRegistro = "Error: el alumno ya existe.";
+            estado = false;
+            modelmap.addAttribute("estado", estado);
+            modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
+        }
+
+
+        return "formCargarAlumnos.html";
     }
 
     @GetMapping("/{id}")

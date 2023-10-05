@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="/base :: head"></head>
+  <body>
+  <nav th:replace="/base :: nav"></nav>
+  <h2 class="mx-auto w-50 text-center mt-5">Alumnos registrados</h2>
+  <div class="w-100 mx-auto px-5 my-4">
+    <div class="row">
+      <div class="col-2 h5">Nombre</div>
+      <div class="col-2 h5">Apellido</div>
+      <div class="col-2 h5">Fecha de nacimiento</div>
+      <div class="col-2 h5">Curso</div>
+      <div class="col-2 h5">Fecha de inscripcion</div>
+      <div class="col-2 h5">Estado</div>
+    </div>
+    <hr class="fs-2">
+    <div th:each="alumno : ${alumnos}" class="row">
+      <div th:text="${alumno.getNombre()}" class="col-2 h5"></div>
+      <div th:text="${alumno.getApellido()}" class="col-2 h5"></div>
+      <div th:text="${alumno.getFecha_nacimiento_string()}" class="col-2 h5"></div>
+      <div th:text="${alumno.getCurso()}" class="col-2 h5 overflow-scroll text-nowrap" style="-webkit-appearance:none"></div>
+      <div th:text="${alumno.getFecha_inscripcion_string()}" class="col-2 h5"></div>
+      <div th:text="${alumno.getAprobado()} ? Aprobado : Reprobado" class="col-2 h5"></div>
+    </div>
+  </div>
+
+
+
+  <footer th:replace="/base :: footer"></footer>
+
+  <script th:replace="/base :: scriptBootstrap"></script>
+</body>
+</html>

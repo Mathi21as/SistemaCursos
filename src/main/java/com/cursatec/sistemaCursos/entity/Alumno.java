@@ -60,6 +60,10 @@ public class Alumno {
         return fecha_nacimiento;
     }
 
+    public String getFecha_nacimiento_string() {
+        return fecha_nacimiento.toString().replace(" 00:00:00.0","");
+    }
+
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
@@ -74,6 +78,10 @@ public class Alumno {
 
     public Date getFecha_inscripcion() {
         return fecha_inscripcion;
+    }
+
+    public String getFecha_inscripcion_string() {
+        return fecha_inscripcion.toString().replace(" 00:00:00.0","");
     }
 
     public void setFecha_inscripcion(Date fecha_inscripcion) {

@@ -22,6 +22,16 @@ public class CursoService {
         return cursoRepository.findAll();
     }
 
+    public boolean save(Curso curso){
+        if (cursoRepository.findByTitulo(curso.getTitulo()).size() == 0){
+            cursoRepository.save(curso);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public Optional<Curso> findById(Long id){
         return cursoRepository.findById(id);
     }

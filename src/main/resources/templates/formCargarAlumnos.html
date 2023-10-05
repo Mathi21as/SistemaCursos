@@ -3,15 +3,28 @@
 <head th:replace="/base :: head"></head>
 <body>
     <nav th:replace="/base :: nav"></nav>
+    <h2 class="mx-auto w-50 text-center mt-5">Ingrese los datos del alumno</h2>
+    <form action="/alumno/cargar" method="POST" class="container w-75 mx-auto my-5 px-5">
+        <div class="row mx-auto my-3 justify-content-center gap-5">
+            <input name="nombre" type="text" placeholder="Nombre" class="col-4"/>
+            <input name="apellido" type="text" placeholder="Apellido" class="col-4"/>
+        </div>
+        <div class="row mx-auto my-3 justify-content-center gap-5">
+            <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento" class="col-4"/>
+            <input name="curso_id" type="number" placeholder="Id del curso" class="col-4"/>
+        </div>
+        <div class="row mx-auto my-3 justify-content-center gap-5">
+            <input name="fecha_inscripcion" type="date" placeholder="Fecha de inscripcion" class="col-4"/>
+            <button type="submit" class="col-4">Cargar</button>
+        </div>
 
-    <form action="/alumno/cargar" method="POST">
-        <input name="nombre" type="text" placeholder="Nombre"/>
-        <input name="apellido" type="text" placeholder="Apellido"/>
-        <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento"/>
-        <input name="curso_id" type="number" placeholder="Id del curso"/>
-        <input name="fecha_inscripcion" type="date" placeholder="Fecha de inscripcion"/>
-        <button type="submit">Cargar</button>
     </form>
+
+    <p
+            class="w-50 mx-auto fs-5 text-center"
+            th:if="${mensajeRegistro != null}" th:text="${mensajeRegistro}"
+            th:classappend="${estado} ? text-success : text-danger"
+    ></p>
 
     <footer th:replace="/base :: footer"></footer>
 

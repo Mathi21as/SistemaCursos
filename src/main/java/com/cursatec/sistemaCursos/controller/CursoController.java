@@ -3,10 +3,10 @@ package com.cursatec.sistemaCursos.controller;
 import com.cursatec.sistemaCursos.entity.Curso;
 import com.cursatec.sistemaCursos.service.CursoService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +19,37 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
+    @GetMapping("/todos")
+    public String findAll(ModelMap modelMap){
+        List<Curso> cursos = cursoService.findAll();
+        modelMap.addAttribute("cursos", cursos);
+
+        return "mostrarCursos.html";
+    }
+
     @GetMapping("/cargar")
-    public List<Curso> findAll(){
-        return cursoService.findAll();
+    public String cargar(){
+        return "formCargarCursos.html";
+    }
+
+    @PostMapping("/cargar")
+    public String cargar(@RequestParam String titulo, String descripcion, String fecha_creacion, ModelMap modelmap){
+        Date fechaCreacion = new Date(fecha_creacion.replace("-", "/").replace(" 00:00:00.0",""));
+        Curso curso = new Curso(titulo, descripcion, fechaCreacion);
+        String mensajeRegistro;
+        Boolean estado;
+        if (cursoService.save(curso)){
+            mensajeRegistro = "Se completo el registro exitosamente.";
+            estado = true;
+            modelmap.addAttribute("estado", estado);
+            modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
+        }else{
+            mensajeRegistro = "Error: el curso ya existe.";
+            estado = false;
+            modelmap.addAttribute("estado", estado);
+            modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
+        }
+        return "formCargarCursos.html";
     }
 
     @GetMapping("/{id}")

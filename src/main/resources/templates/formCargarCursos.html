@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="/base :: head"></head>
 <body>
+<nav th:replace="/base :: nav"></nav>
+<h2 class="mx-auto w-50 text-center mt-5">Ingrese los datos del curso</h2>
+<form action="/curso/cargar" method="POST" class="container w-75 mx-auto my-5 px-5">
+    <div class="row mx-auto my-3 justify-content-center gap-5">
+        <input name="titulo" type="text" placeholder="Titulo del curso" class="col-4"/>
+    </div>
+    <div class="row mx-auto my-3 justify-content-center gap-5">
+        <input name="descripcion" type="textarea" height="100px" placeholder="Descripcion" class="col-8"/>
+    </div>
+    <div class="row mx-auto my-3 justify-content-center gap-5">
+        <input name="fecha_creacion" type="date" placeholder="Fecha de creacion" class="col-4"/>
+        <button type="submit" class="col-4">Cargar</button>
+    </div>
 
+</form>
+
+<p
+        class="w-50 mx-auto fs-5 text-center"
+        th:if="${mensajeRegistro != null}" th:text="${mensajeRegistro}"
+        th:classappend="${estado} ? text-success : text-danger"
+></p>
+
+<footer th:replace="/base :: footer"></footer>
+
+<script th:replace="/base :: scriptBootstrap"></script>
 </body>
 </html>

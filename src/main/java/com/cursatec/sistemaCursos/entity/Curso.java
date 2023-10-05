@@ -21,9 +21,9 @@ public class Curso {
     public Curso() {
     }
 
-    public Curso(List<Alumno> alumnos, String titulo, String descripcion, Date fecha_creacion) {
+    public Curso(String titulo, String descripcion, Date fecha_creacion) {
         this.id = null;
-        this.alumnos = alumnos;
+        this.alumnos = null;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha_creacion = fecha_creacion;
@@ -63,6 +63,10 @@ public class Curso {
 
     public Date getFecha_creacion() {
         return fecha_creacion;
+    }
+
+    public String getFecha_creacion_string() {
+        return fecha_creacion.toString().replace(" 00", "");
     }
 
     public void setFecha_creacion(Date fecha_creacion) {
