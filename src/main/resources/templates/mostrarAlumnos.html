@@ -4,23 +4,29 @@
   <body>
     <nav th:replace="/base :: nav"></nav>
     <h2 class="mx-auto w-50 text-center mt-5">Alumnos registrados</h2>
-    <div class="w-100 mx-auto px-5 my-4">
-      <div class="row">
-        <div class="col-2 h5">Nombre</div>
-        <div class="col-2 h5">Apellido</div>
+    <div class="w-100 d-grid mx-auto px-5 my-4">
+      <div class="row column-gap-3">
+        <div class="col-1 h5">Nombre</div>
+        <div class="col-1 h5">Apellido</div>
         <div class="col-2 h5">Fecha de nacimiento</div>
-        <div class="col-2 h5">Curso</div>
+        <div class="col-3 h5">Curso</div>
         <div class="col-2 h5">Fecha de inscripcion</div>
-        <div class="col-2 h5">Estado</div>
+        <div class="col-1 h5">Estado</div>
+        <div class="col-1 h5"></div>
       </div>
-      <hr class="fs-2">
-      <div th:each="alumno : ${alumnos}" class="row">
-        <div th:text="${alumno.getNombre()}" class="col-2 h5"></div>
-        <div th:text="${alumno.getApellido()}" class="col-2 h5"></div>
-        <div th:text="${alumno.getFecha_nacimiento_string()}" class="col-2 h5"></div>
-        <div th:text="${alumno.getCurso()}" class="col-2 h5 overflow-scroll text-nowrap" style="-webkit-appearance:none"></div>
-        <div th:text="${alumno.getFecha_inscripcion_string()}" class="col-2 h5"></div>
-        <div th:text="${alumno.getAprobado()} ? Aprobado : Reprobado" class="col-2 h5"></div>
+      <hr class="my-2 border-5">
+      <div th:each="alumno : ${alumnos}" class="row column-gap-3">
+        <div th:text="${alumno.getNombre()}" name="nombre" class="col-1 h5"></div>
+        <div th:text="${alumno.getApellido()}" name="apellido" class="col-1 h5"></div>
+        <div th:text="${alumno.getFecha_nacimiento_string()}" name="fecha_nacimiento" class="col-2 h5"></div>
+        <div th:text="${alumno.getCurso()}" name="curso" class="col-3 h5 overflow-hidden text-nowrap" style="-webkit-appearance:none"></div>
+        <div th:text="${alumno.getFecha_inscripcion_string()}" name="fecha_inscripcion" class="col-2 h5"></div>
+        <div th:text="${alumno.getAprobado()} ? Aprobado : Reprobado" name="estado" class="col-1 h5"></div>
+        <div class="col-1 row column-gap-1">
+          <a class="btn btn-success col-5 h5" th:href="@{/alumno/editar/__${alumno.getId()}__}">Editar</a>
+          <a class="btn btn-danger col-5 h5" th:href="@{/alumno/eliminar/__${alumno.getId()}__}">Eliminar</a>
+        </div>
+        <hr class="my-1 border-2">
       </div>
     </div>
 

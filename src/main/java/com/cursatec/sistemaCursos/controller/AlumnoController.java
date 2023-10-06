@@ -36,14 +36,15 @@ public class AlumnoController {
     }
 
     @GetMapping("/cargar")
-    public String formAlumno(){
-
+    public String formAlumno(ModelMap modelMap){
+        List<Curso> cursos = cursoService.findAll();
+        modelMap.addAttribute("cursos", cursos);
         return "formCargarAlumnos.html";
     }
 
     @PostMapping("/cargar")
-    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento, Long curso_id, String fecha_inscripcion, ModelMap modelmap) {
-        Curso curso = cursoService.findById(curso_id).get();
+    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento, String tituloCurso, String fecha_inscripcion, ModelMap modelmap) {
+        Curso curso = cursoService.findByTitulo(tituloCurso);
         Date fechaNacimiento = new Date(fecha_nacimiento.replace("-", "/"));
         Date fechaInscripcion = new Date(fecha_inscripcion.replace("-", "/"));
         Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, curso, fechaInscripcion);
@@ -61,13 +62,29 @@ public class AlumnoController {
             modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
         }
 
-
         return "formCargarAlumnos.html";
     }
 
     @GetMapping("/{id}")
     public Optional<Alumno> findById(@PathVariable Long id){
         return alumnoService.findById(id);
+    }
+
+    @GetMapping("/editar/{id}")
+    public String update(@PathVariable Long id, ModelMap modelMap){
+        Alumno alumno = alumnoService.findById(id).get();
+        List<Curso> cursos = cursoService.findAll();
+        Curso curso = new Curso();
+        cursos.add(0, curso);
+        modelMap.addAttribute("cursos", cursos);
+        modelMap.addAttribute("alumno", alumno);
+        return "formEditarAlumno.html";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String update(@PathVariable Long id, @RequestParam String nombre, String apellido, String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
+        alumnoService.modificar(id, nombre, apellido, fecha_nacimiento, curso, fecha_inscripcion, estado, cursoService);
+        return "mostrarAlumnos.html";
     }
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="/base :: head"></head>
+<body>
+<nav th:replace="/base :: nav"></nav>
+<h2 class="mx-auto w-50 text-center mt-5">Llene solo los datos que quiere editar del alumno</h2>
+<form th:action="@{/alumno/editar/__${alumno.getId()}__}" method="POST" class="container w-75 mx-auto my-5 px-5">
+  <div class="row mx-auto my-3 justify-content-center gap-5">
+    <input name="nombre" th:value="${alumno.getNombre()}" type="text" placeholder="Nombre" class="col-4"/>
+    <input name="apellido" th:value="${alumno.getApellido()}" type="text" placeholder="Apellido" class="col-4"/>
+  </div>
+  <div class="row mx-auto my-3 justify-content-center gap-5">
+    <input name="fecha_nacimiento" th:value="${alumno.getFecha_nacimiento()}" type="date" placeholder="Fecha de nacimiento" class="col-4">
+    <select name="curso" type="number" placeholder="Id del curso" class="col-4">
+      <option th:each="curso : ${cursos}" th:value="${curso.getTitulo()}" th:text="${curso.getTitulo()}"></option>
+    </select>
+  </div>
+  <div class="row mx-auto my-3 justify-content-center gap-5">
+    <input name="fecha_inscripcion" th:value="${alumno.getNombre()}" type="date" placeholder="Fecha de inscripcion" class="col-4"/>
+    <select name="estado" class="col-4">
+      <option></option>
+      <option>Aprobado</option>
+      <option>Reprobado</option>
+    </select>
+  </div>
+  <button type="submit" class="col-4">Cargar</button>
+</form>
+
+<p
+        class="w-50 mx-auto fs-5 text-center"
+        th:if="${mensajeRegistro != null}" th:text="${mensajeRegistro}"
+        th:classappend="${estado} ? text-success : text-danger"
+></p>
+
+<footer th:replace="/base :: footer"></footer>
+
+<script th:replace="/base :: scriptBootstrap"></script>
+</body>
+</html>

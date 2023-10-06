@@ -11,7 +11,9 @@
         </div>
         <div class="row mx-auto my-3 justify-content-center gap-5">
             <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento" class="col-4"/>
-            <input name="curso_id" type="number" placeholder="Id del curso" class="col-4"/>
+            <select name="tituloCurso" type="number" placeholder="Id del curso" class="col-4">
+                <option th:each="curso : ${cursos}" th:text="${curso.getTitulo()}"></option>
+            </select>
         </div>
         <div class="row mx-auto my-3 justify-content-center gap-5">
             <input name="fecha_inscripcion" type="date" placeholder="Fecha de inscripcion" class="col-4"/>
