@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,13 @@ public class CursoService {
         }else{
             return false;
         }
+    }
 
+    public Curso guardarParametros(String titulo, String descripcion, String fecha_creacion){
+        Date fechaCreacion = new Date(fecha_creacion.replace("-", "/")
+                .replace(" 00:00:00.0",""));
+        Curso curso = new Curso(titulo, descripcion, fechaCreacion);
+        return curso;
     }
 
     public Optional<Curso> findById(Long id){

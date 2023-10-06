@@ -34,8 +34,7 @@ public class CursoController {
 
     @PostMapping("/cargar")
     public String cargar(@RequestParam String titulo, String descripcion, String fecha_creacion, ModelMap modelmap){
-        Date fechaCreacion = new Date(fecha_creacion.replace("-", "/").replace(" 00:00:00.0",""));
-        Curso curso = new Curso(titulo, descripcion, fechaCreacion);
+        Curso curso = cursoService.guardarParametros(titulo, descripcion, fecha_creacion);
         String mensajeRegistro;
         Boolean estado;
         if (cursoService.save(curso)){
