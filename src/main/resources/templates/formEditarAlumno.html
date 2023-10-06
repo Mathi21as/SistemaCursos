@@ -4,7 +4,7 @@
 <body>
 <nav th:replace="/base :: nav"></nav>
 <h2 class="mx-auto w-50 text-center mt-5">Llene solo los datos que quiere editar del alumno</h2>
-<form th:action="@{/alumno/editar/__${alumno.getId()}__}" method="POST" class="container w-75 mx-auto my-5 px-5">
+<form th:action="@{/alumno/editar/__${alumno.getId()}__}" method="POST" class="container d-grid w-75 mx-auto my-5 px-5">
   <div class="row mx-auto my-3 justify-content-center gap-5">
     <input name="nombre" th:value="${alumno.getNombre()}" type="text" placeholder="Nombre" class="col-4"/>
     <input name="apellido" th:value="${alumno.getApellido()}" type="text" placeholder="Apellido" class="col-4"/>
@@ -23,7 +23,7 @@
       <option>Reprobado</option>
     </select>
   </div>
-  <button type="submit" class="col-4">Cargar</button>
+  <button type="submit" class="col-4 mx-auto">Cargar</button>
 </form>
 
 <p

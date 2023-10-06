@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="/base :: head"></head>
+<body>
+<nav th:replace="/base :: nav"></nav>
+<h2 class="mx-auto w-50 text-center mt-5" th:text="${curso.getTitulo()}"></h2>
+<div class="w-100 d-grid px-5 my-4">
+  <div class="row column-gap-3">
+    <div class="col-1 h5">Nombre</div>
+    <div class="col-1 h5">Apellido</div>
+    <div class="col-2 h5">Fecha de nacimiento</div>
+    <div class="col-3 h5">Curso</div>
+    <div class="col-2 h5">Fecha de inscripcion</div>
+    <div class="col-1 h5">Estado</div>
+    <div class="col-1 h5"></div>
+  </div>
+  <hr class="my-2 border-5">
+  <div th:each="alumno : ${curso.getAlumnos()}" class="row column-gap-3">
+    <div th:text="${alumno.getNombre()}" name="nombre" class="col-1 h5"></div>
+    <div th:text="${alumno.getApellido()}" name="apellido" class="col-1 h5"></div>
+    <div th:text="${alumno.getFecha_nacimiento_string()}" name="fecha_nacimiento" class="col-2 h5"></div>
+    <div th:text="${alumno.getCurso()}" name="curso" class="col-3 h5 overflow-hidden text-nowrap" style="-webkit-appearance:none"></div>
+    <div th:text="${alumno.getFecha_inscripcion_string()}" name="fecha_inscripcion" class="col-2 h5"></div>
+    <div th:text="${alumno.getAprobado()} ? Aprobado : Reprobado" name="estado" class="col-1 h5"></div>
+    <div class="col-1 row column-gap-2">
+      <a class="btn btn-success p-2 col-5 h5" th:href="@{/alumno/editar/__${alumno.getId()}__}">
+        <img class="w-100 invert" style="filter:invert(1)" th:src="@{https://cdn-icons-png.flaticon.com/512/1827/1827933.png}" alt="edit">
+      </a>
+      <a class="btn btn-danger p-2 col-5 h5" th:href="@{/alumno/eliminar/__${alumno.getId()}__}">
+        <img class="w-100" style="filter:invert(1)" th:src="@{https://cdn-icons-png.flaticon.com/512/565/565491.png}" alt="delete">
+      </a>
+    </div>
+    <hr class="my-1 border-2">
+  </div>
+</div>
+
+
+
+<footer th:replace="/base :: footer"></footer>
+
+<script th:replace="/base :: scriptBootstrap"></script>
+</body>
+</html>

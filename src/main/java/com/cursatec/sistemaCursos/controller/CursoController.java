@@ -52,8 +52,10 @@ public class CursoController {
         return "formCargarCursos.html";
     }
 
-    @GetMapping("/{id}")
-    public Optional<Curso> findById(@PathVariable Long id){
-        return cursoService.findById(id);
+    @GetMapping("/{id}/alumnos")
+    public String mostrarAlumnos(@PathVariable Long id, ModelMap modelMap){
+        Curso curso = cursoService.findById(id).get();
+        modelMap.addAttribute("curso", curso);
+        return "mostrarAlumnosPorCurso.html";
     }
 }

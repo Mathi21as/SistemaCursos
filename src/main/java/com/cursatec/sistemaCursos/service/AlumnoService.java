@@ -29,13 +29,21 @@ public class AlumnoService {
         return alumnoRepository.findById(id);
     }
 
-    public void modificar(Long id, String nombre, String apellido, String fecha_nacimiento, String curso, String fecha_inscripcion, String estado, CursoService cursoService) {
+    public Alumno guardarParametros(String nombre, String apellido, String fecha_nacimiento, String tituloCurso,
+                                    String fecha_inscripcion, CursoService cursoService){
+        Curso curso = cursoService.findByTitulo(tituloCurso);
+        Date fechaNacimiento = new Date(fecha_nacimiento.replace("-", "/"));
+        Date fechaInscripcion = new Date(fecha_inscripcion.replace("-", "/"));
+        Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, curso, fechaInscripcion);
+        return alumno;
+    }
+
+    public void modificar(Long id, String nombre, String apellido, String fecha_nacimiento, String curso,
+                          String fecha_inscripcion, String estado, CursoService cursoService) {
         Alumno alumno = alumnoRepository.findById(id).get();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Date fecha_nacimiento_date = null;
         Date fecha_inscripcion_date = null;
-        System.out.println("Fecha inscripcion: "+fecha_inscripcion+" "+fecha_inscripcion.getClass());
-        System.out.println("Fecha nacimiento: "+fecha_nacimiento+" "+fecha_nacimiento.getClass());
         try{
             if (!fecha_nacimiento.equals(""))
                 fecha_nacimiento_date = (Date) format.parse(fecha_nacimiento.replace("-", "/"));
@@ -71,6 +79,10 @@ public class AlumnoService {
         }else{
             return false;
         }
+    }
+
+    public List<Alumno> findByApellido(String apellido){
+        return alumnoRepository.findByApellido(apellido);
     }
 
     public void delete(Long id){

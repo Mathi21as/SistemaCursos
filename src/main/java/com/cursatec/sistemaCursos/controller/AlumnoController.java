@@ -44,11 +44,11 @@ public class AlumnoController {
     }
 
     @PostMapping("/cargar")
-    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento, String tituloCurso, String fecha_inscripcion, ModelMap modelmap) {
-        Curso curso = cursoService.findByTitulo(tituloCurso);
-        Date fechaNacimiento = new Date(fecha_nacimiento.replace("-", "/"));
-        Date fechaInscripcion = new Date(fecha_inscripcion.replace("-", "/"));
-        Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, curso, fechaInscripcion);
+    public String saveAlumno(@RequestParam String nombre, String apellido, String fecha_nacimiento,
+                             String tituloCurso, String fecha_inscripcion, ModelMap modelmap) {
+        Alumno alumno = alumnoService.guardarParametros(
+                nombre, apellido, fecha_nacimiento, tituloCurso,
+                fecha_inscripcion, cursoService); //guarda los parametros del metodo saveAlumno en un objeto alumno
         String mensajeRegistro;
         Boolean estado;
         if (alumnoService.save(alumno)){
@@ -66,16 +66,26 @@ public class AlumnoController {
         return "formCargarAlumnos.html";
     }
 
-    @GetMapping("/{id}")
-    public Optional<Alumno> findById(@PathVariable Long id){
-        return alumnoService.findById(id);
+    @GetMapping("/buscar")
+    public String findById(){
+        return "buscarAlumno.html";
+    }
+
+    @PostMapping("/buscar")
+    public String findById(@RequestParam String apellido, ModelMap modelMap){
+        List<Alumno> alumnos;
+        if (!apellido.equals("")){
+            alumnos = alumnoService.findByApellido(apellido);
+            modelMap.addAttribute("alumnos", alumnos);
+        }
+        return "buscarAlumno.html";
     }
 
     @GetMapping("/editar/{id}")
     public String update(@PathVariable Long id, ModelMap modelMap){
         Alumno alumno = alumnoService.findById(id).get();
         List<Curso> cursos = cursoService.findAll();
-        Curso curso = new Curso();
+        Curso curso = new Curso(); //crea un curso vacio para que luego, en la etiqueta select de la pagina registrar o editar alumno, aparezca vacio si no se quiere modificar.
         cursos.add(0, curso);
         modelMap.addAttribute("cursos", cursos);
         modelMap.addAttribute("alumno", alumno);
@@ -83,7 +93,8 @@ public class AlumnoController {
     }
 
     @PostMapping("/editar/{id}")
-    public ModelAndView update(@PathVariable Long id, @RequestParam String nombre, String apellido, String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
+    public ModelAndView update(@PathVariable Long id, @RequestParam String nombre, String apellido,
+                               String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
         alumnoService.modificar(id, nombre, apellido, fecha_nacimiento, curso, fecha_inscripcion, estado, cursoService);
         return new ModelAndView("redirect:/alumno/todos");
     }
