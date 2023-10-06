@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,9 +83,22 @@ public class AlumnoController {
     }
 
     @PostMapping("/editar/{id}")
-    public String update(@PathVariable Long id, @RequestParam String nombre, String apellido, String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
+    public ModelAndView update(@PathVariable Long id, @RequestParam String nombre, String apellido, String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
         alumnoService.modificar(id, nombre, apellido, fecha_nacimiento, curso, fecha_inscripcion, estado, cursoService);
-        return "mostrarAlumnos.html";
+        return new ModelAndView("redirect:/alumno/todos");
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarAlumno(@PathVariable Long id, ModelMap modelMap){
+        Alumno alumno = alumnoService.findById(id).get();
+        modelMap.addAttribute("alumno", alumno);
+        return "eliminarAlumno.html";
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public ModelAndView eliminarAlumno(@PathVariable Long id){
+        alumnoService.delete(id);
+        return new ModelAndView("redirect:/alumno/todos");
     }
 
 }
