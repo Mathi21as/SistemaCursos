@@ -7,6 +7,7 @@ import com.cursatec.sistemaCursos.repository.CursoRepository;
 import com.cursatec.sistemaCursos.service.AlumnoService;
 import com.cursatec.sistemaCursos.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -51,12 +52,15 @@ public class AlumnoController {
                 fecha_inscripcion, cursoService); //guarda los parametros del metodo saveAlumno en un objeto alumno
         String mensajeRegistro;
         Boolean estado;
-        if (alumnoService.save(alumno)){
+        Alumno alumnoCreado = alumnoService.save(alumno);
+        if (alumnoCreado != null){
             mensajeRegistro = "Se completo el registro exitosamente.";
             estado = true;
+            modelmap.addAttribute("alumnoCreado", alumnoCreado);
             modelmap.addAttribute("estado", estado);
             modelmap.addAttribute("mensajeRegistro", mensajeRegistro);
         }else{
+            //HttpStatus.INTERNAL_SERVER_ERROR;
             mensajeRegistro = "Error: el alumno ya existe.";
             estado = false;
             modelmap.addAttribute("estado", estado);
@@ -92,7 +96,7 @@ public class AlumnoController {
         return "formEditarAlumno.html";
     }
 
-    @PostMapping("/editar/{id}")
+    @PatchMapping("/editar/{id}")
     public ModelAndView update(@PathVariable Long id, @RequestParam String nombre, String apellido,
                                String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
         alumnoService.modificar(id, nombre, apellido, fecha_nacimiento, curso, fecha_inscripcion, estado, cursoService);
@@ -106,7 +110,7 @@ public class AlumnoController {
         return "eliminarAlumno.html";
     }
 
-    @PostMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ModelAndView eliminarAlumno(@PathVariable Long id){
         alumnoService.delete(id);
         return new ModelAndView("redirect:/alumno/todos");

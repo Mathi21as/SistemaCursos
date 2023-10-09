@@ -45,7 +45,7 @@
   </div>
 </nav>
 
-<form th:action="@{/alumno/eliminar/__${alumno.getId()}__}" method="POST" class="d-grid w-75 mx-auto justify-content-center my-5 py-3">
+<form th:action="@{/alumno/eliminar/__${alumno.getId()}__}" th:method="delete" class="d-grid w-75 mx-auto justify-content-center my-5 py-3">
   <div class="row my-2">
     <h1 class="col">Quiere eliminar al alumno <span th:text="${alumno.getNombre()}"></span> <span th:text="${alumno.getApellido()}"></span>?</h1>
   </div>

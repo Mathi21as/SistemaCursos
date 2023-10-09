@@ -72,13 +72,11 @@ public class AlumnoService {
         alumnoRepository.save(alumno);
     }
 
-    public boolean save(Alumno alumno){
-        if (alumnoRepository.findByNombreAndApellido(alumno.getNombre(), alumno.getApellido()).size() == 0){
-            alumnoRepository.save(alumno);
-            return true;
-        }else{
-            return false;
-        }
+    public Alumno save(Alumno alumno){
+        Alumno alumnoCreado = null;
+        if (alumnoRepository.findByNombreAndApellido(alumno.getNombre(), alumno.getApellido()).size() == 0)
+            alumnoCreado = alumnoRepository.save(alumno);
+        return alumnoCreado;
     }
 
     public List<Alumno> findByApellido(String apellido){
