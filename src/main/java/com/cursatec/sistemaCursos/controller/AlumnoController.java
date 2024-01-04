@@ -96,7 +96,7 @@ public class AlumnoController {
         return "formEditarAlumno.html";
     }
 
-    @PatchMapping("/editar/{id}")
+    @PostMapping("/editar/{id}")
     public ModelAndView update(@PathVariable Long id, @RequestParam String nombre, String apellido,
                                String fecha_nacimiento, String curso, String fecha_inscripcion, String estado){
         alumnoService.modificar(id, nombre, apellido, fecha_nacimiento, curso, fecha_inscripcion, estado, cursoService);

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head th:replace="/base :: head"></head>
+<head th:replace="~{base :: head}"></head>
 <body>
-<nav th:replace="/base :: nav"></nav>
+<nav th:replace="~{base :: nav}"></nav>
 <h2 class="mx-auto w-50 text-center mt-5" th:text="${curso.getTitulo()}"></h2>
 <div class="w-100 d-grid px-5 my-4">
   <div class="row column-gap-3">
@@ -36,8 +36,8 @@
 
 
 
-<footer th:replace="/base :: footer"></footer>
+<footer th:replace="~{base :: footer}"></footer>
 
-<script th:replace="/base :: scriptBootstrap"></script>
+<script th:replace="~{base :: scriptBootstrap}"></script>
 </body>
 </html>

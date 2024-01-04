@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head th:replace="/base :: head"></head>
+<head th:replace="~{base :: head}"></head>
 <body>
-    <nav th:replace="/base :: nav"></nav>
+    <nav th:replace="~{base :: nav}"></nav>
     <h2 class="mx-auto w-50 text-center mt-5">Ingrese los datos del alumno</h2>
-    <form action="/alumno/cargar" method="POST" class="container w-75 mx-auto my-5 px-5">
-        <div class="row mx-auto my-3 justify-content-center gap-5">
-            <input name="nombre" type="text" placeholder="Nombre" class="col-4"/>
-            <input name="apellido" type="text" placeholder="Apellido" class="col-4"/>
+    <form action="/alumno/cargar" method="POST" class="grid text-center row-gap-3 w-75 mx-auto my-5 px-5">
+        <div class="row mx-auto my-3 justify-content-center gap-0">
+            <label class="col-1">Nombre:</label>
+            <input name="nombre" type="text" placeholder="Nombre" class="col-3"/>
+
+            <label class="col-2 text-end">Apellido:</label>
+            <input name="apellido" type="text" placeholder="Apellido" class="col-3"/>
         </div>
-        <div class="row mx-auto my-3 justify-content-center gap-5">
-            <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento" class="col-4"/>
-            <select name="tituloCurso" type="number" placeholder="Id del curso" class="col-4">
+        <div class="row mx-auto my-3 justify-content-center gap-0">
+            <label class="col-2">Fecha de nacimiento:</label>
+            <input name="fecha_nacimiento" type="date" placeholder="Fecha de nacimiento" class="col-3"/>
+
+            <label class="col-2 text-end">Curso:</label>
+            <select name="tituloCurso" type="number" placeholder="Id del curso" class="col-3">
                 <option th:each="curso : ${cursos}" th:text="${curso.getTitulo()}"></option>
             </select>
         </div>
-        <div class="row mx-auto my-3 justify-content-center gap-5">
+        <div class="row mx-auto my-3 justify-content-center gap-0">
+            <label class="col-2">Fecha de inscripcion:</label>
             <input name="fecha_inscripcion" type="date" placeholder="Fecha de inscripcion" class="col-4"/>
-            <button type="submit" class="col-4">Cargar</button>
         </div>
-
+        <button type="submit" class="col-3 mx-auto my-3">Cargar</button>
     </form>
 
     <p
@@ -28,8 +34,8 @@
             th:classappend="${estado} ? text-success : text-danger"
     ></p>
 
-    <footer th:replace="/base :: footer"></footer>
+    <footer th:replace="~{base :: footer}"></footer>
 
-    <script th:replace="/base :: scriptBootstrap"></script>
+    <script th:replace="~{base :: scriptBootstrap}"></script>
 </body>
 </html>

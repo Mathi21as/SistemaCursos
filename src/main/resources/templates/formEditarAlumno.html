@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head th:replace="/base :: head"></head>
+<head th:replace="~{base :: head}"></head>
 <body>
-<nav th:replace="/base :: nav"></nav>
+<nav th:replace="~{base :: nav}"></nav>
 <h2 class="mx-auto w-50 text-center mt-5">Llene solo los datos que quiere editar del alumno</h2>
-<form th:action="@{/alumno/editar/__${alumno.getId()}__}" th:method="PATCH" class="container d-grid w-75 mx-auto my-5 px-5">
+<form th:action="@{/alumno/editar/__${alumno.getId()}__}" th:method="POST" class="container d-grid w-75 mx-auto my-5 px-5">
   <div class="row mx-auto my-3 justify-content-center gap-5">
     <input name="nombre" th:value="${alumno.getNombre()}" type="text" placeholder="Nombre" class="col-4"/>
     <input name="apellido" th:value="${alumno.getApellido()}" type="text" placeholder="Apellido" class="col-4"/>
@@ -32,8 +32,8 @@
         th:classappend="${estado} ? text-success : text-danger"
 ></p>
 
-<footer th:replace="/base :: footer"></footer>
+<footer th:replace="~{base :: footer}"></footer>
 
-<script th:replace="/base :: scriptBootstrap"></script>
+<script th:replace="~{base :: scriptBootstrap}"></script>
 </body>
 </html>
